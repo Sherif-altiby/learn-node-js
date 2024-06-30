@@ -14,8 +14,8 @@ fs.readFile('./users.json', 'utf8', (err, data) => {
 })
 
 
-//  Write File
 
+//  Write File
 const data =[
     {
         id: 1,
@@ -31,6 +31,7 @@ fs.writeFile('./users.json', JSON.stringify(data), 'utf8', (err) => {
     }
 })
 
+
 // Delete File 
 fs.unlink('./users.json', (err) => {
     if(err){
@@ -38,4 +39,15 @@ fs.unlink('./users.json', (err) => {
     } else {
         console.log("File removd successfully!")
     }
+})
+
+// Streams => [readable  -  writeable]
+
+const rStream = fs.createReadStream('./hellow.txt', 'utf8');
+const wStream = fs.createWriteStream('./stream.txt', 'utf8')
+
+rStream.on('data', (chunk) => {
+    console.log("======Chunk======", chunk)
+    wStream.write("\n ++++====== CHUNK ++++====== \n");
+    wStream.write(chunk)
 })
